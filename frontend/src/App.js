@@ -9,28 +9,28 @@ function App() {
   const [features, setFeatures] = useState(["", "", "", "", ""]);
   const [result, setResult] = useState("");
   const [user, setUser] = useState(null);
-
+  const BACKEND_URL = "https://student-placement-predictor-web.onrender.com";
   // Google Login Success Handler
   const handleLogin = async (credentialResponse) => {
-    try {
-      const token = credentialResponse.credential;
-      const decoded = jwtDecode(token);
-      console.log("User:", decoded);
-      setUser(decoded);  // save user state
-      const BACKEND_URL = import.meta.env.VITE_BACKEND_URL || "http://localhost:4000";
-      // Send token to backend for verification
-      const response = await fetch("${BACKEND_URL}/api/google-login", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ token }),
-      });
+  try {
+    const token = credentialResponse.credential;
+    const decoded = jwtDecode(token);
+    console.log("User:", decoded);
+    setUser(decoded);
 
-      const result = await response.json();
-      console.log(result);
-    } catch (err) {
-      console.error("Login error:", err);
-    }
-  };
+    const response = await fetch(`${BACKEND_URL}/api/google-login`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ token }),
+    });
+
+    const result = await response.json();
+    console.log(result);
+  } catch (err) {
+    console.error("Login error:", err);
+  }
+};
+
 
   // Handle input changes for ML features
   const handleChange = (i, value) => {
@@ -41,16 +41,17 @@ function App() {
 
   // Predict placement using backend ML model
   const predict = async () => {
-    try {
-      const response = await axios.post("http://localhost:4000/api/predict", {
-        features: features,
-      });
-      setResult(response.data.prediction === 1 ? "Placed" : "Not Placed");
-    } catch (err) {
-      console.error(err);
-      setResult("Error");
-    }
-  };
+  try {
+    const response = await axios.post(`${BACKEND_URL}/api/predict`, {
+      features: features,
+    });
+    setResult(response.data.prediction === 1 ? "Placed" : "Not Placed");
+  } catch (err) {
+    console.error(err);
+    setResult("Error");
+  }
+};
+
 
   return (
   <div className="container">
