@@ -4,7 +4,7 @@ import numpy as np
 
 app = Flask(__name__)
 
-model = joblib.load(r"C:\Users\Nehang\OneDrive\ドキュメント\Codes\Project_Final_year\placement_model.pkl")
+model = joblib.load("placement_model.pkl")
 
 @app.route("/predict", methods=["POST"])
 def predict():
