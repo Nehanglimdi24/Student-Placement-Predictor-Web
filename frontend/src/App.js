@@ -17,9 +17,9 @@ function App() {
       const decoded = jwtDecode(token);
       console.log("User:", decoded);
       setUser(decoded);  // save user state
-
+      const BACKEND_URL = import.meta.env.VITE_BACKEND_URL || "http://localhost:4000";
       // Send token to backend for verification
-      const response = await fetch("http://localhost:4000/api/google-login", {
+      const response = await fetch("${BACKEND_URL}/api/google-login", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ token }),
