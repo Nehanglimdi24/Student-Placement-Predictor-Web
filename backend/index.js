@@ -8,7 +8,7 @@ app.use(express.json());
 
 app.post("/api/predict", async (req, res) => {
   try {
-    const response = await axios.post("http://localhost:5000/predict", {
+    const response = await axios.post("https://student-placement-predictor-web-1-model.onrender.com/", {
       features: req.body.features,
     });
     res.json(response.data);
@@ -19,5 +19,5 @@ app.post("/api/predict", async (req, res) => {
 });
 
 app.listen(4000, () => {
-  console.log("Backend running on http://localhost:4000");
+  console.log("Backend running on https://student-placement-predictor-web-1-model.onrender.com/");
 });
