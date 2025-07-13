@@ -7,7 +7,7 @@ app = Flask(__name__)
 CORS(app, resources={r"/predict": {"origins": "*"}})
   # ✅ Enable CORS for all origins
 
-model = joblib.load("./placement_model.pkl")
+model = joblib.load("placement_model.pkl")
 
 @app.route("/predict", methods=["POST"])
 def predict():
