@@ -3,7 +3,12 @@ const axios = require("axios");
 const cors = require("cors");
 
 const app = express();
-app.use(cors());
+app.use(cors({
+  origin: 'https://stdplacementpredictor.netlify.app', // your frontend domain
+  methods: ['GET', 'POST', 'OPTIONS'],
+  allowedHeaders: ['Content-Type'],
+}));
+app.options('*', cors());
 app.use(express.json());
 
 app.post("/api/predict", async (req, res) => {
