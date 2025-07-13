@@ -18,7 +18,7 @@ function App() {
     console.log("User:", decoded);
     setUser(decoded);
 
-    const response = await fetch(`${BACKEND_URL}`, {
+    const response = await fetch(`${BACKEND_URL}/api/predict`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ token }),
