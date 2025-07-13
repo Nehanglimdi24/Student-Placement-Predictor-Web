@@ -24,5 +24,5 @@ app.post("/api/predict", async (req, res) => {
 });
 
 app.listen(4000, () => {
-  console.log("Backend running on https://student-placement-predictor-web-1-model.onrender.com/");
+  console.log("Backend running on port 4000");
 });
