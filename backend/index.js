@@ -11,6 +11,11 @@ app.use(cors({
 app.options('*', cors());
 app.use(express.json());
 
+app.get("/", (req, res) => {
+  res.send("Backend is running.");
+});
+
+
 app.post("/api/predict", async (req, res) => {
   try {
     const response = await axios.post("https://student-placement-predictor-web-1-model.onrender.com/predict", {
