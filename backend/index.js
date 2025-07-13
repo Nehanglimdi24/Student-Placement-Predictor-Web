@@ -13,7 +13,7 @@ app.use(express.json());
 
 app.post("/api/predict", async (req, res) => {
   try {
-    const response = await axios.post("https://student-placement-predictor-web-1-model.onrender.com/", {
+    const response = await axios.post("https://student-placement-predictor-web-1-model.onrender.com", {
       features: req.body.features,
     });
     res.json(response.data);
