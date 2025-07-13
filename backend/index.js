@@ -4,7 +4,7 @@ const cors = require("cors");
 
 const app = express();
 app.use(cors({
-  origin: 'https://stdplacementpredictor.netlify.app', // your frontend domain
+  origin: '*', // your frontend domain
   methods: ['GET', 'POST', 'OPTIONS'],
   allowedHeaders: ['Content-Type'],
 }));
