@@ -18,7 +18,7 @@ function App() {
     console.log("User:", decoded);
     setUser(decoded);
 
-    const response = await fetch(`${BACKEND_URL}/api/google-login`, {
+    const response = await fetch(`${BACKEND_URL}`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ token }),
