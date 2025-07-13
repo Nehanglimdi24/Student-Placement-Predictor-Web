@@ -4,7 +4,8 @@ import joblib
 import numpy as np
 
 app = Flask(__name__)
-CORS(app)  # ✅ Enable CORS for all origins
+CORS(app, resources={r"/predict": {"origins": "*"}})
+  # ✅ Enable CORS for all origins
 
 model = joblib.load("./placement_model.pkl")
 
