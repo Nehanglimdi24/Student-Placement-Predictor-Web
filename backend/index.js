@@ -3,31 +3,43 @@ const axios = require("axios");
 const cors = require("cors");
 
 const app = express();
-app.use(cors({
-  origin: '*', // your frontend domain
+
+// ✅ CORRECT: Allow only your frontend (Netlify) to access the backend
+const corsOptions = {
+  origin: 'https://stdplacementpredictor.netlify.app',
   methods: ['GET', 'POST', 'OPTIONS'],
   allowedHeaders: ['Content-Type'],
-}));
-app.options('*', cors());
+  credentials: true,
+};
+
+app.use(cors(corsOptions));
+app.options('*', cors(corsOptions));
+
+// ✅ Middleware to parse JSON
 app.use(express.json());
 
-app.get("/", (req, res) => {
-  res.send("Backend is running.");
-});
-
-
+// ✅ Prediction route: forwards to your model backend
 app.post("/api/predict", async (req, res) => {
   try {
+    const { features } = req.body;
+
+    if (!features || !Array.isArray(features)) {
+      return res.status(400).json({ error: "Invalid or missing 'features' array." });
+    }
+
     const response = await axios.post("https://student-placement-predictor-web-1-model.onrender.com/predict", {
-      features: req.body.features,
+      features,
     });
+
     res.json(response.data);
   } catch (err) {
-    console.error(err);
+    console.error("Prediction error:", err.message);
     res.status(500).send("Prediction service failed");
   }
 });
 
-app.listen(4000, () => {
-  console.log("Backend running on port 4000");
+// ✅ IMPORTANT: Use dynamic port for Render deployment
+const PORT = process.env.PORT || 4000;
+app.listen(PORT, () => {
+  console.log(`Backend running on port ${PORT}`);
 });
