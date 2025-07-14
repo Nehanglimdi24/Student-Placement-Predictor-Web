@@ -14,6 +14,7 @@ app.use(cors(corsOptions));
 app.options('*', cors(corsOptions));
 
 app.use(express.json());
+console.log("🚀 Server starting");
 
 app.post("/api/predict", async (req, res) => {
   try {
