@@ -39,7 +39,7 @@ function App() {
       });
 
       const prediction = response.data.prediction;
-      const confidence = response.data.confidence;
+      setConfidence(response.data.confidence);
       setResult(prediction === 1 ? "Placed" : "Not Placed");
     } catch (err) {
       console.error("Prediction error:", err);
