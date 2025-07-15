@@ -8,6 +8,7 @@ function App() {
   const [features, setFeatures] = useState(["", "", "", "", ""]);
   const [result, setResult] = useState("");
   const [user, setUser] = useState(null);
+  const [confidence, setConfidence] = useState(null);
 
   const MODEL_URL = "https://student-placement-predictor-web-1-model.onrender.com/predict";
 
