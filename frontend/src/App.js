@@ -38,6 +38,7 @@ function App() {
       });
 
       const prediction = response.data.prediction;
+      const confidence = response.data.confidence;
       setResult(prediction === 1 ? "Placed" : "Not Placed");
     } catch (err) {
       console.error("Prediction error:", err);
@@ -67,7 +68,7 @@ function App() {
           ))}
 
           <button onClick={predict}>Predict</button>
-          <div className="result">Result: {result}</div>
+          <div className="result">Result: {result} with a confidence {confidence}</div>
         </>
       )}
     </div>

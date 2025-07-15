@@ -16,8 +16,16 @@ def predict():
     try:
         data = request.get_json()
         features = np.array(data["features"]).reshape(1, -1)
-        prediction = model.predict(features)
-        return jsonify({"prediction": int(prediction[0])})
+        prediction = model.predict(features)[0]
+        probabilities = model.predict_proba(features)[0]
+        
+        # Confidence is the probability of the predicted class
+        confidence = float(probabilities[prediction])
+        
+        return jsonify({
+            "prediction": int(prediction),
+            "confidence": round(confidence, 4)  # Rounded for readability
+        })
     except Exception as e:
         print("Error during prediction:", str(e))
         return jsonify({"error": "Prediction failed"}), 500
